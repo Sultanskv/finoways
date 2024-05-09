@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% comment %} {% extends 'base.html' %}
+<script>
+   function checkpassword()
+   {
+    if(document.register.pwd.value!=document.register.cpwd.value)
+    {
+      alert('Password and Repeat Password field does not match');
+      document.register.cpwd.focus();
+      return false;
+    }
+    return true;
+   }
+</script> {% endcomment %}
+
+{% comment %} {% block content %}
+<div class="jumbotron" style="width: 80%;text-align: center;margin: 75px auto;">
+    <h1 class="display-6">Enter User Details:</h1>
+    <form method="POST" name="register" onsubmit = "return checkpassword()">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="user_id">Employee Id:</label>
+          {{form.user_id}}
+        </div>
+        <div class="form-group">
+          <label for="password">Enter Password:</label>
+          {{form.password1}}
+        </div>
+        <div class="form-group">
+          <label for="password">Re-Enter Password:</label>
+          {{form.password2}}
+        </div>
+        <div class="form-group">
+            <label for="exampleInputEmail1">Employee Name:</label>
+            {{formSub.employee_name}}
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Department:</label>
+            {{formSub.department}}
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Company:</label>
+            {{formSub.company}}
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Dast of Join::</label>
+            {{formSub.employee_doj}}
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Grade:</label>
+            {{formSub.grade}}
+          </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+</div>
+{% endblock %} {% endcomment %}
+
+
+
+
+
+
+
+
+{% block content %}
+<script>
+  function checkpassword()
+  {
+   if(document.signup.pwd.value!=document.signup.cpwd.value)
+   {
+    alert('Password and Repeat Password field does not match');
+    document.signup.cpwd.focus();
+    return false;
+   }
+   return true;
+  }
+</script>
+
+<div class="card-shodow m-5">
+   <div class ="card=body">
+      <h5 class="p-2" style="border-bottom : 2px solid orange">Create an Account</h5>
+
+      <div class = "container-fluid">
+        <form method="post" name="signup" onsubmit = "return checkpassword()">
+          {%csrf_token %}
+          <div class="form-row">
+            {% comment %} <div class="col-sm-6">
+             <div class="form-group">
+                <label>client</label>
+                <input type="text" name="client" class="form-control" required placeholder="Enter clientname">
+             </div>
+            </div>  {% endcomment %}
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                 <label>first name</label>
+                 <input type="text" name="fname" class="form-control" required placeholder="Enter firstname">
+              </div>
+             </div>
+
+             <div class="col-sm-6">
+              <div class="form-group">
+                 <label>last name</label>
+                 <input type="text" name="lname" class="form-control" required placeholder="Enter last name">
+              </div>
+             </div>
+
+             <div class="col-sm-6">
+              <div class="form-group">
+                 <label>Phone number</label>
+                 <input type="Phone" name="mobile" class="form-control" required placeholder="Enter mobile no">
+              </div>
+             </div>
+
+             <div class="col-sm-6">
+              <div class="form-group">
+                 <label>EmailID</label>
+                 <input type="email" name="email" class="form-control" required placeholder="Enter email">
+              </div>
+             </div>
+
+             <div class="col-sm-6">
+              <div class="form-group">
+                <label for="fromdate">From Date:</label>
+                <input type="datetime-local" id="fromdate" name="fromdate" required class="form-control">
+              </div>
+             </div>
+
+             
+             <div class="col-sm-6">
+              <div class="form-group">
+                <label for="todate">To Date:</label>
+                <input type="datetime-local" id="todate" name="todate" required class="form-control">
+              </div>
+             </div>
+
+             <div class="col-sm-6">
+              <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input type="password" id="pwd" name="pwd" required class="form-control" placeholder="Enter password">
+              </div>
+             </div>
+
+             <div class="col-sm-6">
+              <div class="form-group">
+                <label for="cpwd">Confirm Password:</label>
+                <input type="password" id="cpwd" name="cpwd" required class="form-control" placeholder="Enter password again" >
+              </div>
+             </div>
+
+          </div>
+          <br>
+          <input type="submit" value="submit" onsubmit="return checkpassword()" class=" m-2 px-3 btn btn-primary">
+        </form>
+      </div>
+   </div>
+</div>
+
+{% if error == "no" %}
+<script>
+  alert('Signup Successful');
+  window.location = ('{% url 'client_login' %}');
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+  alert('Something went wrong , Try Again...');
+</script> 
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'client_base.html' %}
+
+{% block main %}
+<script>
+  new DataTable('#example', {
+    layout: {
+        topStart: {
+            buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+        }
+    }
+});
+</script>
+<style>
+  /* White color for table header text */
+  .tablesorter thead th {
+      color: #ffffff; /* White color code */
+  }
+
+  /* White color for table body text */
+  .tablesorter tbody td {
+      color: #ffffff; /* White color code */
+  }
+
+  /* Golden shadow effect for the card */
+  .card {
+    box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.5);
+    /* Golden shadow effect with RGBA color */
+  }
+</style>
+<div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Client Trade History</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive table-container"> <!-- Add the table-container class here -->
+              <table class="table tablesorter table-bordered table-hover" id="example">
+                <thead class="text-primary bg-secondary">
+                  <tr>
+                    <th>NO</th>
+                    <th>TIME</th>
+                    <th>SERVICE-NAME</th>
+                    <th>TRADING</th>
+                    <th>IP-ADDRESS</th>
+                    <th>ORDER-TYPE</th>
+                    <th>UPDATED BY</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for entry in trade_history %}
+                  <tr>
+                      <td>{{ entry.no }}</td>
+                      <td>{{ entry.time }}</td>
+                      <td>{{ entry.service_name }}</td>
+                      <td>{{ entry.trading }}</td>
+                      <td>{{ entry.ip_address }}</td>
+                      <td>{{ entry.order_type }}</td>
+                      <td>{{ entry.updated_by }}</td>
+                  </tr>
+                  {% endfor %}
+                 </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% if error == "no" %}
+<script>
+  alert('Signup Successful');
+//   window.location = ('{% url 'client_tstatus' %}');
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+  alert('Something went wrong , Try Again...');
+</script> 
+
+{% endif %}
+
+
+{% endblock %}

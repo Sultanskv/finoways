@@ -1,0 +1,103 @@
+{% extends 'admin_base.html' %}
+
+{% block main %}
+<style>
+    /* Dark white text color for table */
+    .table-dark-white thead th, .table-dark-white tbody td, .table-dark-white tbody th {
+        color: #f8f9fa; /* Dark white color code */
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card m-5 shadow">
+            <div class="card-body">
+                <h5 class="p-2 mb-4 border-bottom border-gold">Create a Message</h5>
+                <div class="container-fluid">
+                    <form method="post" name="signup" onsubmit="return checkpassword()">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-sm-6 mb-3">
+                                <label for="symbol" class="text-gold">Symbol</label>
+                                <select class="form-control" name="symbol" id="symbol" required>
+                                    <option value="EUR/USD">Select an option</option>
+                                    <option value="EUR/USD">EUR/USD</option>
+                                    <option value="USD/JPY">USD/JPY</option>
+                                    <option value="XAU/USD">XAU/USD</option>
+                                    <option value="GBP/USD">GBP/USD</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label for="type" class="text-gold">Type</label>
+                                <select class="form-control" name="type" id="type" required>
+                                    <option value="BUY">Select an option</option>
+                                    <option value="BUY_ENTRY">BUY_ENTRY</option>
+                                    <option value="BUY_EXIT">BUY_EXIT</option>
+                                    <option value="SELL_ENTRY">SELL_ENTRY</option>
+                                    <option value="SELL_EXIT">SELL_EXIT</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-12 mb-3">
+                                <label for="quantity" class="text-gold">Quantity</label>
+                                <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Quantity">
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label for="entry_price" class="text-gold">Entry Price</label>
+                                <input type="number" class="form-control" step="0.01" name="entry_price" id="entry_price" placeholder="Entry Price">
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <label for="exit_price" class="text-gold">Exit Price</label>
+                                <input type="number" class="form-control" step="0.01" name="exit_price" id="exit_price" placeholder="Exit Price">
+                            </div>
+                        </div>
+                        <br>
+                        <input type="submit" value="Submit" onsubmit="return checkpassword()" class="btn btn-warning px-4">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <!-- Live Forex Data Table -->
+        <div class="card m-5 shadow">
+            <div class="card-body">
+                <h5 class="p-2 mb-4 border-bottom border-gold">Live Forex Data</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped table-dark-white">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Price</th>
+                                <th>Change</th>
+                                <th>% Change</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Forex data rows here -->
+                            <tr>
+                                <td>EUR/USD</td>
+                                <td>1.23456</td>
+                                <td>+0.01234</td>
+                                <td>+1.02%</td>
+                            </tr>
+                            <!-- Add more rows as needed -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if error == "no" %}
+<script>
+    alert('Message Sent Successfully');
+    window.location.href = "{% url 'admin_signals' %}";
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert('Something went wrong, please try again...');
+</script>
+{% endif %}
+{% endblock %}

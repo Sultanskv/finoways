@@ -1,0 +1,78 @@
+{% extends 'client_base.html' %}
+
+{% block main %}
+<script>
+  new DataTable('#example', {
+    layout: {
+        topStart: {
+            buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+        }
+    }
+});
+</script>
+<style>
+  /* White color for table header text */
+  .tablesorter thead th {
+      color: #ffffff; /* White color code */
+  }
+
+  /* White color for table body text */
+  .tablesorter tbody td {
+      color: #ffffff; /* White color code */
+  }
+</style>
+<div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Signals</h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive table-container"> <!-- Add the table-container class here -->
+              <table class="table tablesorter table-bordered table-hover" id="example">
+                <thead class="text-primary bg-secondary">
+                  <tr>
+                    <th>SIGNALS ID</th>
+                    <th>SIGNALS TIME</th>
+                    <th>SYMBOL</th>
+                    <th>TYPE</th>
+                    <th>ENTRY_PRICE</th>
+                    <th>EXIT_PRICE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for signal in clientsignal %}
+                  <tr>
+                      <td>{{ signal.id }}</td>
+                      <td>{{ signal.created_at }}</td>
+                      <td>{{ signal.SYMBOL }}</td> <!-- Assuming 'CATEGORY' corresponds to the category field in your model -->
+                      <td>{{ signal.TYPE }}</td> <!-- Assuming 'TRADE SYMBOL' corresponds to the trade_symbol field in your model -->
+                      <td>{{ signal.ENTRY_PRICE }}</td> <!-- Assuming 'MESSAGE' corresponds to the message field in your model -->
+                      <td>{{ signal.EXIT_PRICE }}</td> <!-- Assuming 'MESSAGE' corresponds to the message field in your model -->
+                  </tr>
+                  {% endfor %}
+                 </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% if error == "no" %}
+<script>
+  alert('Signup Successful');
+  // window.location = ('{% url 'client_signals' %}');
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+  alert('Something went wrong , Try Again...');
+</script> 
+
+{% endif %}
+
+
+{% endblock %}
